@@ -1,4 +1,14 @@
 services:
+  js-app-final-app:
+    image: 193668171416.dkr.ecr.us-east-2.amazonaws.com/js-app-final-app:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URL=mongodb://admin:password@mongodb:27017
+    depends_on:
+      - mongodb
+    networks:
+      - mongo-network
   mongodb:
     image: mongo
     container_name: mongodb
@@ -20,20 +30,6 @@ services:
       ME_CONFIG_MONGODB_ADMINUSERNAME: admin
       ME_CONFIG_MONGODB_ADMINPASSWORD: password
       ME_CONFIG_MONGODB_SERVER: mongodb
-    depends_on:
-      - mongodb
-    networks:
-      - mongo-network
-
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: js-app
-    ports:
-      - "3000:3000"
-    environment:
-      - MONGO_URL=mongodb://admin:password@mongodb:27017
     depends_on:
       - mongodb
     networks:

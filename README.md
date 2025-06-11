@@ -1,34 +1,44 @@
-# JS Profile App (Dockerized)
+# Dockerize Node.js Application and Push to Amazon ECR
 
-This project is a simple Node.js application that serves a personal profile page, stores user data in a MongoDB database, and provides a web UI using Mongo Express.
+## 📌 Project Overview
+This project demonstrates how to containerize a Node.js application using Docker and push the resulting image to a private repository on Amazon Elastic Container Registry (ECR).
 
-## 💻 Technologies Used
-- Node.js + Express
-- MongoDB
-- Mongo Express
-- Docker & Docker Compose
+---
 
-## 🐳 Project Setup
+## 🛠️ Technologies Used
+- **Node.js**
+- **Docker**
+- **Amazon ECR (Elastic Container Registry)**
 
-This project runs three services in containers:
-1. `app`: Node.js server running on port 3000
-2. `mongodb`: Database running on port 27017
-3. `mongo-express`: DB UI running on port 8081
+---
 
-### Start the project:
+## 📂 Project Objectives
+
+- Write a `Dockerfile` to build a production-grade Docker image for a Node.js app.
+- Create a private Docker registry using AWS ECR.
+- Authenticate with ECR and push the Docker image to your private repo.
+
+---
+
+## 🚀 How to Run the Project Locally
 
 ```bash
-docker-compose down -v  # optional clean-up
-docker-compose up --build
+# Step 1: Clone the repo
+git clone https://github.com/YOUR_USERNAME/dockerize-nodejs-to-ecr.git
+cd dockerize-nodejs-to-ecr
 
-## 🚀 Access Locally
+# Step 2: Build the Docker image
+docker build -t nodejs-app .
 
-Once all containers are up and running:
+# Step 3: Run the container
+docker run -p 3000:3000 nodejs-app
 
-- Visit the Node.js profile app: [http://localhost:3000](http://localhost:3000)
-- View MongoDB data with Mongo Express: [http://localhost:8081](http://localhost:8081)
+## 🐳 Push Docker Image to Amazon ECR
+	1.	Authenticate Docker to ECR:
+aws ecr get-login-password --region YOUR_REGION | docker login --username AWS --password-stdin 193668171416.dkr.ecr.us-east-2.amazonaws.com
+	2.	Tag your image:
+docker tag nodejs-app:latest 193668171416.dkr.ecr.us-east-2.amazonaws.com/dockerize-nodejs-to-ecr:latest
+	3.	Push the image:
+docker push 193668171416.dkr.ecr.us-east-2.amazonaws.com/dockerize-nodejs-to-ecr:latest
 
-To test:
-1. Submit user data through the form on `/`.
-2. Visit `/get-profile` to retrieve user data.
-3. Open Mongo Express to confirm data persistence under `user-account > users`.
+Replace all YOUR_... placeholders with actual values specific to your AWS account or GitHub username.

@@ -28,6 +28,7 @@ let mongoUrlDockerCompose = "mongodb://admin:password@mongodb";
 // pass these options to mongo client connect request to avoid DeprecationWarning for current Server Discovery and Monitoring
 let mongoClientOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
+// "user-account" in demo with docker
 let databaseName = "user-account";
 let collectionName = "users";
 
